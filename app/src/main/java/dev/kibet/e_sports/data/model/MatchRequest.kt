@@ -1,6 +1,6 @@
-package dev.kibet.e_sports.model
+package dev.kibet.e_sports.data.model
 
-data class Request(
+data class MatchRequest(
     val season_id: String,
     val date_from: String,
     val apikey: String //APi key

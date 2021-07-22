@@ -1,4 +1,4 @@
-package dev.kibet.e_sports.model
+package dev.kibet.e_sports.data.model
 
 data class Response(
     val match_id: Int,
