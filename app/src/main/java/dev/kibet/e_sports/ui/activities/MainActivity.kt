@@ -11,21 +11,37 @@ import dev.kibet.e_sports.data.model.Sport
 import dev.kibet.e_sports.databinding.ActivityMainBinding
 import dev.kibet.e_sports.ui.adapters.SportsAdapter
 import dev.kibet.e_sports.ui.viewmodel.SportsViewModel
+import dev.kibet.e_sports.util.Resource
+import dev.kibet.e_sports.util.Status
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: SportsViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         subscribeToObservers()
+
+        viewModel.fetchSports()
     }
 
     private fun subscribeToObservers() {
-        viewModel.sportsResponse.observe(viewLi, Observer {
+        viewModel.sportsResponse.observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        lifecycleScope.launch {
+                           // it.data?.let { it1 -> recyclerSports(it1.sports) }
+                            recyclerSports(it.data!!.sports)
+                        }
+                    }
+                }
+            }
 
         })
     }

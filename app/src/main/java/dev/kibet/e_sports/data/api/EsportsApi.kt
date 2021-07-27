@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface EsportsApi {
 
-    @GET("/all_sports.php")
+    @GET("all_sports.php")
     suspend fun getAllSports(): Resource<SportsResponse>?
 
 }
